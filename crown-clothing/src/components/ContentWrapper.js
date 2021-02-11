@@ -13,14 +13,8 @@ const Wrapper = styled.div`
 const ContentWrapper = () => {
   return (
     <Wrapper>
-      {(sections || []).map(((item, id) => (
-        <MenuItem 
-        key={item.id} 
-        imageUrl={item.imageUrl}
-        size={item.size} 
-        title={item.title} 
-        linkUrl={item.linkUrl}
-        />
+      {(sections || []).map((({id, ...OtherSectionProps}) => (
+        <MenuItem key={id} {...OtherSectionProps} />
       )))}
     </Wrapper>
   )
