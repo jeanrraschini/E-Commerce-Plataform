@@ -1,9 +1,10 @@
 import React from 'react';
 import styled from 'styled-components'
+import { withRouter } from 'react-router-dom'
 
 const Item = styled.div`
   min-width: 30%;
-  height: 240px;
+  height: ${({size}) => size ? '380px' : ' 240px;'};
   flex: 1 1 auto;
   display: flex;
   align-items: center;
@@ -24,10 +25,6 @@ const Item = styled.div`
     & .content {
       opacity: 0.9;
     }
-  }
-
-  &.large {
-    height: 380px;
   }
 
   &:first-child {
@@ -75,15 +72,14 @@ const Item = styled.div`
   }
 `
 
-const MenuItem = ({ title, imageUrl, size, key}) => (
-  <Item className={size} imageUrl={imageUrl}>
+const MenuItem = ({ title, imageUrl, size, history, linkUrl, match }) => (
+  <Item size={size} imageUrl={imageUrl} onClick={() => history.push(`${match.url}${linkUrl}`)}>
     <div className='card-background'/>
       <div className='content'>
         <h1 className='title'>{title.toUpperCase()}</h1>
         <span className='subtitle'>SHOP NOW</span>
       </div>
-    {/* </div> */}
   </Item>
 );
 
-export default MenuItem;
+export default withRouter(MenuItem); // withRouter dá acesso às propriedades de rotas, nesse caso o "history" que é chamado por prop vem de withRouter e assim é possível definir uma rota ao componente MenuItem
