@@ -1,10 +1,17 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import FormInput from '../components/FormInput'
+import Button from '../components/Button'
 
 const SignInBlock = styled.div`
   width: 100%;
-  max-width: 30vw
+  max-width: 30vw;
+  display: flex;
+  flex-direction: column
+`
+
+const Title = styled.h2`
+  margin: 20px 0
 `
 
 const SignIn = () => {
@@ -23,11 +30,18 @@ const SignIn = () => {
 
   const handleChange = input => {
     const { name, value } = input
-    setUserInfo({ [name]: value })
+    setUserInfo({
+      ...userInfo,
+      [name] : value
+    })
   }
 
+  useEffect(() => {
+    
+  },)
+
   return (<SignInBlock>
-    <h2>I already have an account</h2>
+    <Title>I already have an account</Title>
     <span>Sign in with your e-mail and password</span>
     <form onSubmit={handleSubmit}>
       <FormInput
@@ -46,7 +60,7 @@ const SignIn = () => {
         handleChange={(e) => handleChange(e.target)}
         required 
       />
-      <FormInput type="submit" name="Submit Form"/>
+      <Button type="submit" name="Submit Form">Sign in</Button>
     </form>
   </SignInBlock>)
 }

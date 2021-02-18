@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 
 const InputBox = styled.div`
@@ -22,8 +22,8 @@ const Input = styled.input`
   &:focus {
     outline: none;
     & ~ label {
-      top: -14px;
-      font-size: 12px;
+      top: -20px;
+      font-size: 14px;
       color: black;
     }
   }
@@ -40,19 +40,20 @@ const Label = styled.label`
   transition: 300ms ease all;
 
   &.shrink {
-  top: -14px;
-  font-size: 12px;
-  color: black;
+    top: -20px;
+    font-size: 14px;
+    color: black;
   }
 `
 
 const FormInput = ({ handleChange, label, ...otherInputProps }) => {
+
   return (
-    <InputBox> {console.log(otherInputProps)}
+    <InputBox>
       <Input onChange={handleChange} {...otherInputProps} />
       {
         label ?
-        (<Label className={`${((otherInputProps || {}).value || {}).length}` > 0 ? 'shrink' : ''}>{label}</Label>) : null
+        (<Label className={!!((otherInputProps || {}).value || {}).length && 'shrink'}>{label}</Label>) : null
       }
     </InputBox>
   )
