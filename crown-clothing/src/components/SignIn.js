@@ -1,17 +1,23 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import FormInput from '../components/FormInput'
 import Button from '../components/Button'
+import { signInWithGoogle } from '../firebase/firebase.utils'
 
 const SignInBlock = styled.div`
   width: 100%;
-  max-width: 30vw;
+  max-width: 380px;
   display: flex;
   flex-direction: column
 `
 
 const Title = styled.h2`
   margin: 20px 0
+`
+
+const ButtonsBox = styled.div`
+  display: flex;
+  justify-content: space-between;
 `
 
 const SignIn = () => {
@@ -36,10 +42,6 @@ const SignIn = () => {
     })
   }
 
-  useEffect(() => {
-    
-  },)
-
   return (<SignInBlock>
     <Title>I already have an account</Title>
     <span>Sign in with your e-mail and password</span>
@@ -60,7 +62,10 @@ const SignIn = () => {
         handleChange={(e) => handleChange(e.target)}
         required 
       />
-      <Button type="submit" name="Submit Form">Sign in</Button>
+      <ButtonsBox>
+        <Button type="submit" name="Submit Form">Sign in</Button>
+        <Button onClick={signInWithGoogle} isGoogleSignIn >Sign in with google</Button>
+      </ButtonsBox>
     </form>
   </SignInBlock>)
 }

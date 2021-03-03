@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 import { ReactComponent as Logo } from '../assets/crown.svg'
+import { auth } from '../firebase/firebase.utils'
 
 const Wrapper = styled.div`
   height: 70px;
@@ -17,6 +18,8 @@ const Wrapper = styled.div`
   }
   & .option {
     padding: 10px 15px;
+    text-transform: uppercase;
+    cursor: pointer;
   }
 `
 
@@ -28,7 +31,7 @@ const Options = styled.div`
   justify-content: flex-end;
 `
 
-const Header = () => {
+const Header = ({ currentUser }) => {
   return <Wrapper>
     <Link className='logo-container' to='/'>
       <Logo />
@@ -36,6 +39,10 @@ const Header = () => {
     <Options>
       <Link className='option' to='/shop'>SHOP</Link>
       <Link className='option' to='/shop'>CONTACT</Link>
+      {currentUser ?
+        <div className='option' onClick={() => auth.signOut()}>Sign out</div>
+        :
+        <Link className='option' to='/signIn'>Sign In</Link>}
     </Options>
   </Wrapper>
 
